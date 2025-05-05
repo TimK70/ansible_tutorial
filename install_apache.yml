@@ -3,35 +3,10 @@
   become: true
   tasks:
 
-  # Ubuntu-based tasks
-  - name: Update APT cache
-    ansible.builtin.apt:
+  - name: Install Apache2/httpd on Ubuntu/Fedora
+    ansible.builtin.package:
+      name:
+        - "{{ apache_package }}"
+        - "{{ php_package }}"
+      state: latest
       update_cache: yes
-    when: ansible_distribution == "Ubuntu"
-
-  - name: Install Apache2 on Ubuntu
-    ansible.builtin.apt:
-      name: apache2
-      state: latest
-    when: ansible_distribution == "Ubuntu"
-
-  - name: Install PHP support for Apache2 on Ubuntu
-    ansible.builtin.apt:
-      name: libapache2-mod-php
-      state: latest
-    when: ansible_distribution == "Ubuntu"
-
-  # Fedora-based tasks (using raw to avoid dnf5 issues)
-  - name: Update DNF cache on Fedora
-    raw: dnf makecache
-    when: ansible_distribution == "Fedora"
-
-  - name: Install Apache and PHP on Fedora using raw
-    raw: dnf install -y httpd php
-    when: ansible_distribution == "Fedora"
-
-  - name: Enable and start Apache on Fedora
-    shell: |
-      systemctl enable httpd
-      systemctl start httpd
-    when: ansible_distribution == "Fedora"
