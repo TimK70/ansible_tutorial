@@ -35,4 +35,3 @@
       systemctl enable httpd
       systemctl start httpd
     when: ansible_distribution == "Fedora"
-
