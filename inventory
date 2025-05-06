@@ -1,3 +1,5 @@
+[web_servers]
+192.168.7.158 ansible_user=ubuntu_user
 
-192.168.7.158 apache_package=apache2 php_package=libapache2-mod-php ansible_user=ubuntu_user
-192.168.7.150  apache_package=httpd php_package=php ansible_user=tk70
+[db_servers]
+192.168.7.150 ansible_user=tk70
